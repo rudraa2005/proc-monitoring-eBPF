@@ -1,0 +1,124 @@
+# eBPF Exec Monitor
+
+A lightweight eBPF-based process execution monitor built using **libbpf**. The program attaches to the Linux `execve` system call and reports every new process execution in real time.
+
+## Features
+
+- Monitors process execution using eBPF
+- Captures:
+  - Process ID (PID)
+  - Parent Process ID (PPID)
+  - Process name (`comm`)
+  - Executable path
+- Low-overhead kernel instrumentation
+- User-space event handling with libbpf
+
+## Architecture
+
+```
+          +----------------------+
+          |   User Application   |
+          |     execmon.c        |
+          +----------+-----------+
+                     |
+               Ring Buffer
+                     |
+          +----------v-----------+
+          |    eBPF Program      |
+          |   execmon.bpf.c      |
+          +----------+-----------+
+                     |
+           tracepoint/sys_enter_execve
+                     |
+          +----------v-----------+
+          |     Linux Kernel     |
+          +----------------------+
+```
+
+## Project Structure
+
+```
+exec-monitor/
+├── src/
+│   ├── execmon.bpf.c
+│   └── execmon.c
+├── Makefile
+├── README.md
+├── .gitignore
+└── LICENSE
+```
+
+## Requirements
+
+- Linux kernel with eBPF support (5.8+ recommended)
+- clang
+- LLVM
+- libbpf
+- bpftool
+- make
+- gcc
+
+## Build
+
+```bash
+make
+```
+
+## Run
+
+```bash
+sudo ./execmon
+```
+
+## Example Output
+
+```
+PID     PPID    COMM            EXECUTABLE
+1435    1023    bash            /usr/bin/bash
+1461    1435    ls              /usr/bin/ls
+1474    1435    python3         /usr/bin/python3
+```
+
+## How It Works
+
+1. The eBPF program attaches to the `execve` tracepoint.
+2. Whenever a process executes a new program, the kernel collects process information.
+3. The event is sent to user space through a ring buffer.
+4. The user-space loader receives the event and prints it in a readable format.
+
+## Technologies Used
+
+- C
+- eBPF
+- libbpf
+- Linux Kernel
+- Ring Buffer API
+- Tracepoints
+
+## Learning Outcomes
+
+This project helped me understand:
+
+- Writing eBPF programs in C
+- Loading eBPF programs with libbpf
+- Kernel-to-user communication using ring buffers
+- Linux process execution internals
+- Event-driven kernel instrumentation
+
+## Future Improvements
+
+- Filter events by process name or PID
+- Export events as JSON
+- Add timestamp support
+- Log events to a file
+- Track process lifetime
+- Container-aware process monitoring
+
+## References
+
+- https://ebpf.io
+- https://github.com/libbpf/libbpf
+- https://github.com/libbpf/libbpf-bootstrap
+
+
+![alt text](image.png)
