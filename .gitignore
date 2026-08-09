@@ -1,0 +1,44 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.d
+*.ll
+*.bc
+
+# eBPF generated files
+*.skel.h
+*.bpf.o
+
+# Compiled binaries
+execmon
+*.out
+
+# Build directories
+build/
+dist/
+
+# Debugging / profiling
+*.log
+core
+core.*
+perf.data
+perf.data.old
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# libbpf / bpftool generated files
+vmlinux.h
+
+# OS files
+Thumbs.db
