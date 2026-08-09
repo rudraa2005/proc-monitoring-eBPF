@@ -4,18 +4,19 @@ A lightweight eBPF-based process execution monitor built using **libbpf**. The p
 
 ## Features
 
-- Monitors process execution using eBPF
-- Captures:
-  - Process ID (PID)
-  - Parent Process ID (PPID)
-  - Process name (`comm`)
-  - Executable path
-- Low-overhead kernel instrumentation
-- User-space event handling with libbpf
+* Monitors process execution using eBPF
+* Captures:
+
+  * Process ID (PID)
+  * Parent Process ID (PPID)
+  * Process name (`comm`)
+  * Executable path
+* Low-overhead kernel instrumentation
+* User-space event handling with libbpf
 
 ## Architecture
 
-```
+```text
           +----------------------+
           |   User Application   |
           |     execmon.c        |
@@ -37,7 +38,7 @@ A lightweight eBPF-based process execution monitor built using **libbpf**. The p
 
 ## Project Structure
 
-```
+```text
 exec-monitor/
 ├── src/
 │   ├── execmon.bpf.c
@@ -50,13 +51,13 @@ exec-monitor/
 
 ## Requirements
 
-- Linux kernel with eBPF support (5.8+ recommended)
-- clang
-- LLVM
-- libbpf
-- bpftool
-- make
-- gcc
+* Linux kernel with eBPF support (5.8+ recommended)
+* clang
+* LLVM
+* libbpf
+* bpftool
+* make
+* gcc
 
 ## Build
 
@@ -72,7 +73,7 @@ sudo ./execmon
 
 ## Example Output
 
-```
+```text
 PID     PPID    COMM            EXECUTABLE
 1435    1023    bash            /usr/bin/bash
 1461    1435    ls              /usr/bin/ls
@@ -88,37 +89,38 @@ PID     PPID    COMM            EXECUTABLE
 
 ## Technologies Used
 
-- C
-- eBPF
-- libbpf
-- Linux Kernel
-- Ring Buffer API
-- Tracepoints
+* C
+* eBPF
+* libbpf
+* Linux Kernel
+* Ring Buffer API
+* Tracepoints
 
 ## Learning Outcomes
 
 This project helped me understand:
 
-- Writing eBPF programs in C
-- Loading eBPF programs with libbpf
-- Kernel-to-user communication using ring buffers
-- Linux process execution internals
-- Event-driven kernel instrumentation
+* Writing eBPF programs in C
+* Loading eBPF programs with libbpf
+* Kernel-to-user communication using ring buffers
+* Linux process execution internals
+* Event-driven kernel instrumentation
 
 ## Future Improvements
 
-- Filter events by process name or PID
-- Export events as JSON
-- Add timestamp support
-- Log events to a file
-- Track process lifetime
-- Container-aware process monitoring
+* Filter events by process name or PID
+* Export events as JSON
+* Add timestamp support
+* Log events to a file
+* Track process lifetime
+* Container-aware process monitoring
 
 ## References
 
-- https://ebpf.io
-- https://github.com/libbpf/libbpf
-- https://github.com/libbpf/libbpf-bootstrap
+* [eBPF](https://ebpf.io)
+* [libbpf](https://github.com/libbpf/libbpf)
+* [libbpf-bootstrap](https://github.com/libbpf/libbpf-bootstrap)
 
+## Demo
 
-![alt text](result/image.png)
+![eBPF Exec Monitor output](result/image.png)
